@@ -1,0 +1,1 @@
+protoc --proto_path=../pkg/proto/v1 --proto_path=. --go_out=plugins=grpc:../grpc/v1 mitraintegrasi.proto

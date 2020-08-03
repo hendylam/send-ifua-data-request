@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{APP_NAME}'
+  labels:
+    provider: containerImage
+    appname: '{APP_NAME}'
+spec:
+  type: '{SERVICE_TYPE}'
+  ports:
+    - name: '{APP_NAME}-http'
+      port: 80  
+      targetPort: 8080
+  selector:
+    provider: containerImage
+    appname: '{APP_NAME}'
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    provider: containerImage
+    appname: '{APP_NAME}'
+  name: '{APP_NAME}'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      provider: containerImage
+      appname: '{APP_NAME}'
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        provider: containerImage
+        appname: '{APP_NAME}'
+    spec:
+      containers:
+        - image: '{NEXUS_REPO}/{APP_NAME}:{IMG_TAG}'
+          name: '{APP_NAME}'
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          env:
+          - name: TZ
+            value: Asia/Jakarta
+          resources:
+            requests:
+              memory: '256Mi'
+              cpu: '250m'
+            limits:
+              memory: '{MEMORY_LIMIT}'
+              cpu: '{CPU_LIMIT}'
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 2
+            successThreshold: 1
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 2
+            successThreshold: 1
+      imagePullSecrets:
+        - name: '{IMG_PULL_SECRET}'

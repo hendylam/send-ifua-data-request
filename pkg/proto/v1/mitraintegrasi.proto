@@ -1,0 +1,199 @@
+syntax = "proto3";
+
+package mitraintegrasi;
+
+import "google/api/annotations.proto";
+
+import "google/protobuf/descriptor.proto";
+
+import "google/protobuf/empty.proto";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "v1";
+
+message Msg {
+}
+
+message HttpxError {
+  uint32 code = 1;
+
+  string err_id = 2;
+
+  Msg msg = 3;
+}
+
+message UserResult {
+  google.protobuf.Timestamp created_at = 1;
+
+  string created_by = 2;
+
+  string email = 3;
+
+  string first_name = 4;
+
+  string id = 5;
+
+  string last_name = 6;
+
+  uint32 role = 7;
+
+  uint32 status = 8;
+
+  google.protobuf.Timestamp updated_at = 9;
+
+  string updated_by = 10;
+}
+
+message SingleUserResult{
+  UserResult result = 1;
+}
+
+message ListUserResult{
+  repeated UserResult result = 1;
+}
+
+
+message UserIDRequest {
+  string id = 1;
+}
+
+//message RegisterUserRequest {
+//  string email = 1;
+
+//string first_name = 2;
+
+//  string last_name = 3;
+
+//  string password = 4;
+
+//  uint32 role = 5;
+//}
+
+//message RegisterUserResult {
+//  string id = 1;
+//}
+
+message PageSizeRequest {
+  uint32 page = 1;
+
+  uint32 size = 2;
+}
+
+message PendaftaranPesertaRequest {
+  repeated PendaftaranPesertaData data = 1;
+
+}
+
+message PendaftaranPesertaData {
+  string processing_date = 1;
+  string processing_time = 2;
+  string sa_code = 3;
+  string sid = 4;
+  string sid_generation_status = 5;
+  string new_sid = 6;
+  string first_name = 7;
+  string middle_name = 8;
+  string last_name = 9;
+  string nationality = 10;
+  string identification = 11;
+  string id_no = 12;
+  string id_exp_date = 13;
+  string npwp_no = 14; 
+  string npwp_date = 15;
+  string birth_country =16;
+  string birth_place = 17;
+  string birth_date = 18;
+  string gender = 19;
+  string education_background = 20;
+  string mother_name = 21;
+  string religion = 22;
+  string occupation = 23;
+  string income_level = 24;
+  string marital_status = 25;
+  string spouse_name = 26;
+  string risk_profile = 27;
+  string investment_objective = 28;
+  string source_of_fund = 29;
+  string asset_owner = 30;
+  string ktp_address = 31;
+  string ktp_city_code = 32;
+  string ktp_postal = 33;
+  string corr_address = 34;
+  string corr_city_code = 35;
+  string corr_city_name = 36;
+  string corr_postal = 37;
+  string corr_country = 38;
+  string dom_address = 39;
+  string dom_city_code = 40;
+  string dom_city_name = 41;
+  string dom_postal = 42;
+  string dom_country = 43;
+  string home_phone = 44;
+  string mobile_phone = 45;
+  string facsimile = 46;
+  string email = 47;
+  string statement_type = 48;
+  string fatca = 49;
+  string tin = 50;
+  string tin_country = 51;
+  string external_cif_no = 52;
+  string type = 53;
+  string investor_type = 54;
+  string red_pay_bank_bic_1 = 55;
+  string red_pay_bank_bi_1 = 56;
+  string red_pay_bank_name_1 = 57;
+  string red_pay_bank_country_1 = 58;
+  string red_pay_bank_branch_1 = 59;
+  string red_pay_bank_acc_ccy_1 = 60;
+  string REDM_Payment_ACNo_1 = 61;
+  string red_pay_bank_acc_name_1 = 62;
+  string red_pay_bank_bic_2 = 63;
+  string red_pay_bank_bi_2 = 64;
+  string red_pay_bank_name_2 = 65;
+  string red_pay_bank_country_2 = 66;
+  string red_pay_bank_branch_2 = 67;
+  string red_pay_bank_acc_ccy_2 = 68;
+  string red_pay_bank_acc_no_2 = 69;
+  string red_pay_bank_acc_name_2 = 70;
+  string red_pay_bank_bic_3 = 71;
+  string red_pay_bank_bi_3 = 72;
+  string red_pay_bank_name_3 = 73;
+  string red_pay_bank_country_3 = 74;
+  string red_pay_bank_branch_3 = 75;
+  string red_pay_bank_acc_ccy_3 = 76;
+  string red_pay_bank_acc_no_3 = 77;
+  string red_pay_bank_acc_name_3 = 78;
+  string client_code = 79;
+  string investor_fund_unit_ac_no = 80;
+  string investor_number = 81;
+}
+
+message PendaftaranPesertaResponse {
+  string status = 1;
+  string message_code = 2;
+  string message_description = 3;
+  Data data = 4;
+}
+
+message Data {
+  string sid = 1;
+}
+
+service Mitraintegrasi {
+  //rpc ActivateUser ( UserIDRequest ) returns ( google.protobuf.Empty ) {
+  //}
+
+  //rpc RegisterUser ( RegisterUserRequest ) returns ( RegisterUserResult) {
+  //}
+
+  //rpc GetUserAll ( PageSizeRequest ) returns ( ListUserResult ) {
+  //}
+
+  //rpc GetUserByID ( UserIDRequest ) returns ( SingleUserResult ) {
+  //}
+
+  rpc PendaftaranPeserta ( PendaftaranPesertaRequest ) returns ( stream PendaftaranPesertaResponse ) {
+  }
+}
+

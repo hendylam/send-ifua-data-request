@@ -1,0 +1,1 @@
+protoc --proto_path=../api/grpc/proto/v1 --proto_path=../third_party --go_out=plugins=grpc:../api/grpc/service/v1 userservice.proto

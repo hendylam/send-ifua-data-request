@@ -1,0 +1,1 @@
+postgresql://taperadev:%23Kecoanuklir2020%23@10.172.31.2:26257/sitara_dev

@@ -1,0 +1,136 @@
+definitions:
+  httpx.Error:
+    properties:
+      code:
+        example: 400
+        type: integer
+      errId:
+        example: 453993f6-e433-445a-b1e4-8dbd70ef26e9
+        type: string
+      msg:
+        type: object
+    type: object
+  user.Result:
+    properties:
+      createdAt:
+        type: string
+      createdBy:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
+      role:
+        type: integer
+      status:
+        type: integer
+      updateAt:
+        type: string
+      updateBy:
+        type: string
+    type: object
+  userreg.RegisterParam:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        type: string
+      role:
+        type: integer
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    - role
+    type: object
+info:
+  contact:
+    email: support@Tapera.org
+    name: Tapera API Support
+    url: http://www.Tapera.org/support
+  description: This is Tapera API listing descriptions.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://Tapera.org/terms/
+  title: Tapera API
+  version: v1.0.0
+paths:
+  /registration/activate/{id}:
+    patch:
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.Error'
+      summary: Activate a registered user by id
+  /registration/register:
+    post:
+      parameters:
+      - description: param
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/userreg.RegisterParam'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.Error'
+      summary: Register a ne user
+  /user/all/{page}/{size}:
+    get:
+      parameters:
+      - description: Page
+        in: path
+        name: page
+        required: true
+        type: integer
+      - description: Size
+        in: path
+        name: size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.Result'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.Error'
+      summary: Retrieves all users based on page and size
+swagger: "2.0"

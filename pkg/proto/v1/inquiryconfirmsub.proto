@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+// package grpc_service;
+
+option go_package = ".;v1";
+
+service SendPaymentPoolId {
+    rpc InquiryConfirmSubs (PaymentPoolId) returns (InquryResponse){}
+}
+
+message PaymentPoolId {
+    string paymentpoolid = 1;
+}
+
+message InquryResponse {
+    string status = 1;
+    string response_code = 2;
+    string response_description = 3;
+  }
