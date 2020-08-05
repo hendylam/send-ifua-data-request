@@ -39,7 +39,7 @@ func (c *Controller) sendDataIfuaReq(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	conn, err := grpc.Dial("10.172.24.63:80", grpc.WithInsecure())
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("can not connect with server %v", err)
 	}
@@ -58,5 +58,5 @@ func (c *Controller) sendDataIfuaReq(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	ext.JSON(http.StatusOK, "success")
+	ext.JSON(http.StatusOK, "done")
 }

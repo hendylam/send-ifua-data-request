@@ -19,4 +19,5 @@ func (c *Controller) Route(r *mux.Router) {
 	s := r.PathPrefix("/dummy/bri").Subrouter()
 	s.HandleFunc("/test", c.Test).Methods("GET")
 	s.HandleFunc("/reqifua", c.sendDataIfuaReq).Methods("POST")
+	s.HandleFunc("/reqredm", c.sendDataRedmReq).Methods("POST")
 }

@@ -19,6 +19,7 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/schema v1.1.0
 	github.com/joho/godotenv v1.3.0
+	github.com/mwitkow/go-proto-validators v0.3.0 // indirect
 	github.com/processout/grpc-go-pool v1.2.1
 	github.com/rs/zerolog v1.19.0
 	github.com/satori/go.uuid v1.2.0
